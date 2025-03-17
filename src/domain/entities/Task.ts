@@ -4,34 +4,58 @@ export interface TaskProps {
   id: string;
   title: string;
   description: string;
-  status: TaskStatus; // Usamos el Value Object
-  assignedTo: string; // User ID
+  status: TaskStatus;
+  assignedTo: string;
 }
 
 export class Task {
-  constructor(private props: TaskProps) {}
+  private readonly _id: string;
+  private _title: string;
+  private _description: string;
+  private _status: TaskStatus;
+  private _assignedTo: string;
+
+  constructor(props: TaskProps) {
+    this._id = props.id;
+    this._title = props.title;
+    this._description = props.description;
+    this._status = props.status;
+    this._assignedTo = props.assignedTo;
+  }
 
   get id(): string {
-    return this.props.id;
+    return this._id;
   }
 
   get title(): string {
-    return this.props.title;
+    return this._title;
   }
 
   get description(): string {
-    return this.props.description;
+    return this._description;
   }
 
   get status(): TaskStatus {
-    return this.props.status;
+    return this._status;
   }
 
   get assignedTo(): string {
-    return this.props.assignedTo;
+    return this._assignedTo;
+  }
+
+  updateTitle(title: string): void {
+    this._title = title;
+  }
+
+  updateDescription(description: string): void {
+    this._description = description;
   }
 
   updateStatus(status: TaskStatus): void {
-    this.props.status = status;
+    this._status = status;
+  }
+
+  updateAssignedTo(assignedTo: string): void {
+    this._assignedTo = assignedTo;
   }
 }
