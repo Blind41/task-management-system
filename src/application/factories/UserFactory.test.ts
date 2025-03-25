@@ -1,8 +1,11 @@
-import { UserFactory } from "./UserFactory";
+import { UserModel } from "../../domain/entities/User";
+import { ExistingUserFactory, NewUserFactory } from "./UserFactory";
 
 describe("User Factory", () => {
   it("should create a new User", () => {
-    const newUser = UserFactory.createNewUser("1", "Andres");
+    const data = { id: "1", name: "Andres" };
+
+    const newUser = new NewUserFactory().createUser(data);
 
     expect(newUser.id).toBe("1");
     expect(newUser.name).toBe("Andres");
@@ -10,9 +13,13 @@ describe("User Factory", () => {
   });
 
   it("should create an User with existing data", () => {
-    const data = { id: "2", name: "Jennifer", createdAt: new Date() };
+    const data: UserModel = {
+      id: "2",
+      name: "Jennifer",
+      createdAt: new Date(),
+    };
 
-    const user = UserFactory.createExistingUser(data);
+    const user = new ExistingUserFactory().createUser(data);
 
     expect(user.id).toBe("2");
     expect(user.name).toBe("Jennifer");
